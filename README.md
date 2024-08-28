@@ -11,6 +11,8 @@ A Jetpack Compose application that displays live scores and upcoming matches for
   4. Italian Serie A
   5. French Ligue 1
 - Capability to show live and upcoming matches worldwide (currently limited to top 5 leagues)
+- Dark and light theme switching for user preference
+- Manual refresh button to update match data on demand
 - MVVM architecture for clean separation of concerns
 - Dependency injection with Dagger Hilt
 - API requests handled by Retrofit and OkHttp
@@ -53,6 +55,14 @@ StateFlows are utilized to implement reactive programming patterns. This allows 
 ## Worldwide Matches Support
 
 While the app is currently configured to display live scores and upcoming matches for the top 5 leagues, it's built with the capability to show matches from leagues worldwide. The codebase can be easily modified to expand coverage to additional leagues or to show all available matches globally.
+
+## Theme Switching
+
+The app supports both dark and light themes. Users can switch between these themes based on their preference, enhancing readability and user experience in different lighting conditions.
+
+## Manual Refresh
+
+A refresh button is provided in the user interface, allowing users to manually update the match data on demand. This feature ensures that users can access the most up-to-date information whenever they need it.
 
 ## Note on Auto-Refresh
 
