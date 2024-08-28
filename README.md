@@ -18,38 +18,6 @@ A Jetpack Compose application that displays live scores and upcoming matches for
 - Reactive programming using StateFlows for seamless UI updates
 - Auto-refresh functionality (currently disabled due to API rate limits)
 
-## Project Structure
-
-```
-app/
-├── manifests/
-├── kotlin+java/
-│   └── com.example.lively/
-│       ├── data/
-│       │   └── remote/
-│       │       ├── models/
-│       │       │   └── LiveMatchesResponse.kt
-│       │       ├── api_endpoints.kt
-│       │       └── RapidApiServices
-│       ├── di/
-│       │   └── NetworkModule
-│       ├── repository/
-│       │   └── MatchesRepository
-│       ├── ui.theme/
-│       ├── utils/
-│       │   ├── constants.kt
-│       │   └── Request.kt
-│       ├── view/
-│       │   ├── screens/
-│       │   └── widgets/
-│       ├── viewmodels/
-│       │   ├── states/
-│       │   ├── HomeScreenViewModel
-│       │   └── MatchesViewModel
-│       ├── LivelyApp
-│       └── MainActivity
-└── res/
-```
 
 ## Getting Started
 
