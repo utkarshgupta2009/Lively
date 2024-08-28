@@ -26,7 +26,10 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.TimeZone
+
 @Composable
 fun UpcomingMatchItem(fixture: FixtureResponse) {
     Card(
@@ -125,12 +128,26 @@ fun MatchDetails(fixture: FixtureResponse) {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Define the formatters
         val dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-        val dateTime = LocalDateTime.parse(fixture.fixture.date, DateTimeFormatter.ISO_DATE_TIME)
 
+        // Parse the fixture date as a LocalDateTime in UTC
+        val dateTimeUtc = LocalDateTime.parse(fixture.fixture.date, DateTimeFormatter.ISO_DATE_TIME)
+
+        // Convert to ZonedDateTime in UTC
+        val utcZone = ZoneId.of("UTC")
+        val zonedDateTimeUtc = dateTimeUtc.atZone(utcZone)
+
+        // Get the user's current time zone
+        val userTimeZone = ZoneId.systemDefault()
+
+        // Convert the UTC ZonedDateTime to the user's local time
+        val localDateTime = zonedDateTimeUtc.withZoneSameInstant(userTimeZone)
+
+        // Display the formatted date and time
         Text(
-            text = dateTime.format(dateFormatter),
+            text = localDateTime.format(dateFormatter),
             style = MaterialTheme.typography.bodyMedium
         )
 
@@ -139,20 +156,21 @@ fun MatchDetails(fixture: FixtureResponse) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = dateTime.format(timeFormatter),
+                text = localDateTime.format(timeFormatter),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "(${fixture.fixture.timezone})",
+                text = "(${TimeZone.getDefault().displayName})",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
 }
+
 
 @Composable
 fun VenueInfo(fixture: FixtureResponse) {
